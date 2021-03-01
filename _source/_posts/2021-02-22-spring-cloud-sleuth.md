@@ -22,7 +22,7 @@ Spring Cloud Sleuth allows you to aggregate and track log entries as requests mo
 
 Spring Cloud Sleuth's solution is to inject **span** and **trace** IDs into log entries. A **trace** ID is the unique identifier that an entire request flow will share. It's like the glue that sticks all of the log entries together. A **span** is more local and is defined for each request received for each request sent event. They define particular interaction points. 
 
-The initial span, or **root span** is generated when I client request is received from outside the distributed system. This request lacks **trace** and **span** information. The root span becomes the trace ID for the rest of the request flow through the system.
+The initial span, or **root span** is generated when a client request is received from outside the distributed system. This request lacks **trace** and **span** information. The root span becomes the trace ID for the rest of the request flow through the system.
 
 The diagram below shows how Sleuth span and trace generation would work through a hypothetical service network.
 
@@ -540,3 +540,14 @@ Click on **Show** and you'll see a detailed summary of the request tracing and l
 
 {% img blog/spring-cloud-sleuth/image9.png alt:"Spring Initializr" width:"600" %}{: .center-image }
 
+If you look at the detailed graph, you'll see three spans. The original GET request from the bash shell is the 
+first one. Withi**n that, there is a span that encompasses the GET request to service B from the side of service A
+and a third span that encompasses service B receiving the GET request.
+
+## Conclusion
+
+In this tutorial you learned a little about Spring Cloud Sleuth and how it can be used to trace requests through
+service meshes built with Spring Boot. You created an example application that you started two instances of
+and used Spring Cloud Sleuth to track an example request through the service network. You secured the services
+using Okta JWT OAuth 2.0 and OIDC. You ran a local Zipkin server that allowed you to visualize the Sleuth
+span and trace entries in your logs.
